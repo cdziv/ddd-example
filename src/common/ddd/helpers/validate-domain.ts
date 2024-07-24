@@ -10,7 +10,10 @@ export function validateDomain(
     return;
   } else {
     const message = result.error.issues
-      .map((iss) => `${iss.path}:${iss.message}`)
+      .map((iss) => {
+        const pathStr = iss.path.length > 0 ? `[${iss.path.join(',')}]` : '';
+        return pathStr ? `${pathStr}:${iss.message}` : iss.message;
+      })
       .join('; ');
     return new DddArgumentInvalidDomainError(message);
   }

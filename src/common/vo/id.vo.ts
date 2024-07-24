@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { DomainPrimitiveProps, ValueObject } from '../ddd';
 import { v4 as uuidv4 } from 'uuid';
-import { validateDomain } from '../ddd/helpers/validate-domain';
+import { validateDomain } from '../ddd';
 
 const idSchema = z.string().uuid();
 

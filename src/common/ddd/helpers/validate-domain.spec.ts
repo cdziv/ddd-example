@@ -39,7 +39,7 @@ describe('validateDomain', () => {
     };
     const result = validateDomain(schema, props);
     expect(result?.message).toBe(
-      'foo:Expected string, received number; bar:Expected number, received string',
+      '[foo]:Expected string, received number; [bar]:Expected number, received string',
     );
   });
 });
