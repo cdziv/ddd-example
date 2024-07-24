@@ -267,38 +267,32 @@ describe('Price', () => {
         decimal: new Decimal(amount1).sub(new Decimal(amount2)),
       });
     });
-    it('should return a new Price that multiplied by two prices', () => {
-      const amount1 = faker.finance.amount();
-      const amount2 = faker.finance.amount();
-      const price1 = new Price({
-        decimal: new Decimal(amount1),
+    it('should return a new Price that multiplied by given amount', () => {
+      const amount = faker.finance.amount();
+      const price = new Price({
+        decimal: new Decimal(amount),
       });
-      const price2 = new Price({
-        decimal: new Decimal(amount2),
-      });
+      const mulAmount = faker.number.float();
 
-      const result = price1.mul(price2);
+      const result = price.mul(mulAmount);
 
       expect(result).toBeInstanceOf(Price);
       expect(result.value).toEqual({
-        decimal: new Decimal(amount1).mul(new Decimal(amount2)),
+        decimal: new Decimal(amount).mul(mulAmount),
       });
     });
-    it('should return a new Price that divided by two prices', () => {
-      const amount1 = faker.finance.amount();
-      const amount2 = faker.finance.amount();
-      const price1 = new Price({
-        decimal: new Decimal(amount1),
+    it('should return a new Price that divided by given amount', () => {
+      const amount = faker.finance.amount();
+      const price = new Price({
+        decimal: new Decimal(amount),
       });
-      const price2 = new Price({
-        decimal: new Decimal(amount2),
-      });
+      const divAmount = faker.number.float();
 
-      const result = price1.div(price2);
+      const result = price.div(divAmount);
 
       expect(result).toBeInstanceOf(Price);
       expect(result.value).toEqual({
-        decimal: new Decimal(amount1).div(new Decimal(amount2)),
+        decimal: new Decimal(amount).div(new Decimal(divAmount)),
       });
     });
   });

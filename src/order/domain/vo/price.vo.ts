@@ -39,11 +39,11 @@ export class Price extends ValueObject<PriceProps> {
     }
     return new Price({ decimal: this.value.decimal.sub(other.value.decimal) });
   }
-  mul(other: Price): Price {
-    return new Price({ decimal: this.value.decimal.mul(other.value.decimal) });
+  mul(amount: number): Price {
+    return new Price({ decimal: this.value.decimal.mul(amount) });
   }
-  div(other: Price): Price {
-    return new Price({ decimal: this.value.decimal.div(other.value.decimal) });
+  div(amount: number): Price {
+    return new Price({ decimal: this.value.decimal.div(amount) });
   }
 
   static create(amount: DecimalString | number) {
