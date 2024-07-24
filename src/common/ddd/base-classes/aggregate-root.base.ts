@@ -15,6 +15,7 @@ import {
  * DDD 並未強制 AggregateRoot 在程式碼中應該要是不可變的物件，因為它在概念上是具有生命週期的。
  * 但為了更清晰與可追蹤的撰寫邏輯，我將 AggregateRoot 實作為不可變的物件。
  * 此版本是一個簡單的實踐，應該視需求進行擴充。例如將 _props 的值儲存為 immutable 的物件以避免外部操作異動等等。
+ *
  */
 export abstract class AggregateRoot<
   T extends PlainObject,
