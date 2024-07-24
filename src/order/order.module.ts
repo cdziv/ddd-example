@@ -2,7 +2,9 @@ import { Module, Provider } from '@nestjs/common';
 import { EXCHANGE_RATE_PROVIDER } from './order.constants';
 import { MockExchangeRateProvider } from './infra/mock-exchange-rate-provider';
 import { OrderDomainService } from './domain';
+import { OrderController } from './controller';
 
+const controllers = [OrderController];
 const domainServices = [OrderDomainService];
 const providers: Provider[] = [
   {
@@ -13,8 +15,7 @@ const providers: Provider[] = [
 ];
 
 @Module({
-  controllers: [],
+  controllers,
   providers,
-  exports: [],
 })
 export class OrderModule {}
