@@ -1,6 +1,6 @@
 import { DecimalString } from '../../common';
 
-export type IOrderCreateBody = {
+export type OrderCreateBody = {
   id: string;
   name: string;
   address: {
@@ -11,4 +11,4 @@ export type IOrderCreateBody = {
   price: DecimalString;
   currency: string;
 };
-export type IOrderResponse = IOrderCreateBody;
+export type OrderResponse = OrderCreateBody;

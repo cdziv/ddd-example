@@ -7,7 +7,7 @@ import {
 } from '../../../common';
 import { z } from 'zod';
 
-const orderNameSchema = z
+export const orderNameSchema = z
   .string()
   .min(3)
   .max(60)
@@ -21,6 +21,7 @@ const orderNameSchema = z
 
 export class OrderName extends ValueObject<DomainPrimitiveProps<string>> {
   validate() {
+    console.log(orderNameSchema.safeParse(this.value).error);
     return validateDomain(orderNameSchema, this.value);
   }
 }

@@ -18,7 +18,14 @@ type OrderProps = {
   currency: Currency;
 };
 
+/**
+ * TODO: domain events
+ */
 export class OrderAR extends AggregateRoot<OrderProps, Id> {
+  update(props: UpdateOrderProps) {
+    return this.patchValues(props);
+  }
+
   static create(props: CreateOrderProps): OrderAR {
     const id = Id.create();
     return new OrderAR({ ...props, id });
@@ -39,3 +46,4 @@ export type CreateOrderProps = {
   price: Price;
   currency: Currency;
 };
+export type UpdateOrderProps = Partial<CreateOrderProps>;
