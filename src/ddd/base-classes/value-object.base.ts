@@ -1,6 +1,6 @@
 import isEqual from 'lodash.isequal';
 import { DddArgumentInvalidDomainError } from '../errors';
-import { PlainObject, ValueObjectValue } from '../interfaces';
+import { ValueObjectProps, ValueObjectValue } from '../interfaces';
 import { isDomainPrimitive, isPlainObject } from '../utils';
 
 /**
@@ -10,7 +10,7 @@ import { isDomainPrimitive, isPlainObject } from '../utils';
  *
  * @note 此版本是一個簡單的實踐，應該視需求進行擴充。例如將 _props 的值儲存為 immutable 的物件以避免外部操作異動等等。
  */
-export abstract class ValueObject<T extends PlainObject> {
+export abstract class ValueObject<T extends ValueObjectProps> {
   private _props: T;
   private _cachedValue: ValueObjectValue<T> | undefined;
 
