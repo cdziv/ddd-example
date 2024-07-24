@@ -20,7 +20,7 @@ export abstract class ValueObject<T extends ValueObjectProps> {
       throw new DddArgumentInvalidDomainError('Prop should be plain object');
     }
     // 更好的做法可能是將 props 儲存為 immutable 物件
-    this._props = Object.freeze(props) as T;
+    this._props = props;
 
     // 進行驗證
     const error = this.validate();

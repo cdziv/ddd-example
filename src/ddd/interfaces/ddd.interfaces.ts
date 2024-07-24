@@ -1,3 +1,5 @@
+import { DomainEvent } from '../base-classes/domain-event.base';
+
 export type Primitive = string | number | boolean | undefined | null;
 export type PlainObject = Record<string, unknown>;
 /**
@@ -11,3 +13,7 @@ export type DomainPrimitiveProps<T> = { value: T };
 export type ValueObjectProps = PlainObject | DomainPrimitiveProps<unknown>;
 export type ValueObjectValue<T> =
   T extends DomainPrimitiveProps<infer R> ? R : T;
+
+export interface DomainEventEmitter {
+  emit(domainEventName: string, event: DomainEvent): void;
+}

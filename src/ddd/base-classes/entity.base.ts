@@ -7,7 +7,7 @@ import { ValueObject } from './value-object.base';
  * Entity 的識別值是一個 Value Object。
  *
  * @note
- * DDD 並未強制 Entity 在程式碼中應該要是不可變的物件，因為他在概念上是具有生命週期的。
+ * DDD 並未強制 Entity 在程式碼中應該要是不可變的物件，因為它在概念上是具有生命週期的。
  * 但為了更清晰與可追蹤的撰寫邏輯，我將 Entity 實作為不可變的物件。
  * 此版本是一個簡單的實踐，應該視需求進行擴充。例如將 _props 的值儲存為 immutable 的物件以避免外部操作異動等等。
  */
@@ -19,7 +19,7 @@ export abstract class Entity<
   private _cachedValue: T | undefined;
 
   constructor(props: T) {
-    this._props = Object.freeze(props);
+    this._props = props;
     this.guard();
   }
 
