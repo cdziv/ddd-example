@@ -15,6 +15,7 @@ import {
   Id,
 } from '../../../common';
 import { CurrencyType } from '../..//order.constants';
+import { OrderCreated, OrderUpdated } from '../events';
 
 describe('OrderAR', () => {
   const city = new City({
@@ -73,11 +74,59 @@ describe('OrderAR', () => {
         currency,
       });
     });
+    it('When passing valid props, should create OrderAR instance with OrderCreated domain event', () => {
+      const order = OrderAR.create({
+        name,
+        address,
+        price,
+        currency,
+      });
+
+      expect(order.domainEvents).toHaveLength(1);
+      expect(order.domainEvents[0]).toEqual(new OrderCreated(order.id.value));
+    });
     it('When passing invalid props, should throw DddArgumentInvalidDomainError', () => {
       const invalidProps = { price: null } as any;
 
       expect(() => OrderAR.create(invalidProps)).toThrow(
         DddArgumentInvalidDomainError,
+      );
+    });
+  });
+
+  describe('update', () => {
+    it('When passing valid props, should update OrderAR instance with updated props', () => {
+      const order = new OrderAR(validProps);
+      const newPrice = Price.create(faker.finance.amount());
+      const newCurrency = new Currency({ value: CurrencyType.USD });
+
+      const updatedOrder = order.update({
+        price: newPrice,
+        currency: newCurrency,
+      });
+
+      expect(updatedOrder).toBeInstanceOf(OrderAR);
+      expect(updatedOrder.id).toEqual(order.id);
+      expect(updatedOrder.props).toMatchObject({
+        name,
+        address,
+        price: newPrice,
+        currency: newCurrency,
+      });
+    });
+    it('When passing valid props, should add OrderUpdated domain event', () => {
+      const order = new OrderAR(validProps);
+      const newPrice = Price.create(faker.finance.amount());
+      const newCurrency = new Currency({ value: CurrencyType.USD });
+
+      const updatedOrder = order.update({
+        price: newPrice,
+        currency: newCurrency,
+      });
+
+      expect(updatedOrder.domainEvents).toHaveLength(1);
+      expect(updatedOrder.domainEvents[0]).toEqual(
+        new OrderUpdated(order.id.value),
       );
     });
   });

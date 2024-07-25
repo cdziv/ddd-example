@@ -33,8 +33,9 @@ export abstract class AggregateRoot<
   protected override patchValues(props: Partial<T>): this;
   protected override patchValues(updater: (props: this) => Partial<T>): this;
   protected override patchValues(updater: any): this {
-    const newProps = super.patchValues(updater);
-    return new (this.constructor as any)(newProps, this._domainEvents);
+    const updatedAR = super.patchValues(updater);
+    const updatedProps = updatedAR.props;
+    return new (this.constructor as any)(updatedProps, this._domainEvents);
   }
 
   public clearDomainEvents(): this {

@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { AggregateRoot, Id, validateDomain, voSchema } from '../../../common';
 import { Address, Currency, OrderName, Price } from '../vo';
+import { OrderCreated, OrderUpdated } from '../events';
 
 const orderSchema = z.object({
   id: voSchema(Id),
@@ -23,12 +24,16 @@ type OrderProps = {
  */
 export class OrderAR extends AggregateRoot<OrderProps, Id> {
   update(props: UpdateOrderProps) {
-    return this.patchValues(props);
+    return this.patchValues(props).addDomainEvent(
+      new OrderUpdated(this.id.value),
+    );
   }
 
   static create(props: CreateOrderProps): OrderAR {
     const id = Id.create();
-    return new OrderAR({ ...props, id });
+    return new OrderAR({ ...props, id }).addDomainEvent(
+      new OrderCreated(id.value),
+    );
   }
 
   get id() {
