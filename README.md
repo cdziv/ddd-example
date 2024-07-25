@@ -107,15 +107,25 @@ curl -X POST http://localhost:3000/api/orders \
 
 ## 設計模式說明
 
+### 概覽
+
 ![API 資料處理模式](https://raw.githubusercontent.com/cdziv/ddd-example/9543424cc5c30bff670426e3b5d95ae87344455c/Untitled.jpg)
 
 Http Request 將被 Nest.js Controller 解析為一個 Plain Object，我使用 DTO Assembler 將 Request Body 轉換 Service 的參數或是直接轉換成領域物件。這裡不直接定義一個 model 類並在當中定義雙向轉換邏輯是因為 DTO Assembler 能更好地解耦兩邊資料格式，除了可以應付更複雜的資料格式需求外，也能避免領域資料結構外洩。
 
 因為題目中描述了兩階段的格式驗證，第一層只驗證資料型別，第二層才驗證資料邏輯，所以範例中實作上在第一次轉換並沒有直接轉換成領域物件，否則根據實際需求可以直接轉換成領域物件並作為參數傳入 Service。
 
-在 service 中，主要邏輯都是和領域物件、領域服務互動。我將 order 各個欄位設計為 Value Object，order 則是一個 Aggregate Root，它們各自維護內部的邏輯一制性，若不符規則則拋出 Domain Error。值得一提的是 Domain Error 應該妥善地被 Application Layer 處理，不應直接拋出給 Controller，這種內部的錯誤應該要視為 bug 並拋出 500，這是為了避免領域邏輯外洩。所以雖然在 Value Object 中已經定義了各欄位的資料規則，但我還是在 `TO Assembler 中進行獨立的驗證並在錯誤時拋出 400。
+在 service 中，主要邏輯都是和領域物件、領域服務互動。我將 order 各個欄位設計為 Value Object，order 則是一個 Aggregate Root，它們各自維護內部的邏輯一制性，若不符規則則拋出 Domain Error。值得一提的是 Domain Error 應該妥善地被 Application Layer 處理，不應直接拋出給 Controller，這種內部的錯誤應該要視為 bug 並拋出 500，這是為了避免領域邏輯外洩。所以雖然在 Value Object 中已經定義了各欄位的資料規則，但我還是在 DTO Assembler 中進行獨立的驗證並在錯誤時拋出 400。
 
 另外 DTO Assembler 應該只專注在資料格式的轉換。像是 **訂單金額限制、匯率轉換** 我認為比較像是商業邏輯，所以將它們寫在 Order Service 和 Order Domain Service 中。
+
+### 領域物件的設計
+
+Post /api/orders 的 Body 格式中每一個欄位都設計成對應的 Value Object，並在其中維護資料與邏輯規則。其中 Address 是一個包含另外 City, District, Street 的 Value Object。而雖然 Body 格式中 Price 和 Currency 是兩個不同欄位，但因為價格的意義通常包含數量及幣別，所以設計了 DecimalAmount 和 Currency，而 Price 是包含了這兩者的 Value Object。
+
+> ‼️ 這裡產生了領域物件與表示層的格式不同的狀況，DTO Assembler 在這邊便發揮了作用。
+
+而 Order 則是一個 Aggregate Root。
 
 ## 整體架構設計模式說明
 
