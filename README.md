@@ -2,61 +2,78 @@
 
 ## 運行服務
 
+### 使用 Docker
+
 ```bash
-# Build the docker image
+# 建構映像檔
 docker build -t <image name> .
-# Run the docker container
+
+# 執行容器
 docker run -d -p 3000:3000 --name <container name> <image name>
-
 ```
 
-<!--
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
+## 執行測試
 
 ```bash
-$ npm install
+# 單元測試
+npm run test
+
+# 端到端測試
+npm run test:e2e
+
+# 測試覆蓋率
+npm run test:cov
 ```
 
-## Running the app
+## 手動測試資料
+
+在運行服務後，server 將監聽 https://localhost:3000 ，開放的 api 是 POST /api/orders，您可以執行以下指令進行測試：
+
+> ‼️ 本範例實作 id 為 uuid，不合法的 uuid 將回應 400 Bad Request
 
 ```bash
-# development
-$ npm run start
+# 合法的 body，回應將把 USD 根據匯率 31 轉換為 TWD
+curl -X POST http://localhost:3000/api/orders \
+     -H "Content-Type: application/json" \
+     -d '{
+          "id": "d30d4d93-187a-4912-896a-ca2a9e9fb3c8",
+          "name": "The Order Name",
+          "address": {
+            "city": "New Taipei City",
+            "district": "Tamsui",
+            "street": "hello world street"
+          },
+          "price": "50",
+          "currency": "USD"
+        }'
 
-# watch mode
-$ npm run start:dev
+# 不合法的 name
+curl -X POST http://localhost:3000/api/orders \
+     -H "Content-Type: application/json" \
+     -d '{
+          "id": "d30d4d93-187a-4912-896a-ca2a9e9fb3c8",
+          "name": "The Order Name with No Capitalized words",
+          "address": {
+            "city": "New Taipei City",
+            "district": "Tamsui",
+            "street": "hello world street"
+          },
+          "price": "50",
+          "currency": "USD"
+        }'
 
-# production mode
-$ npm run start:prod
+# 不合法的 price (換算成 TWD 後超過 2000)
+curl -X POST http://localhost:3000/api/orders \
+     -H "Content-Type: application/json" \
+     -d '{
+          "id": "d30d4d93-187a-4912-896a-ca2a9e9fb3c8",
+          "name": "The Order Name",
+          "address": {
+            "city": "New Taipei City",
+            "district": "Tamsui",
+            "street": "hello world street"
+          },
+          "price": "65",
+          "currency": "USD"
+        }'
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE). -->
