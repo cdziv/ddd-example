@@ -39,6 +39,7 @@ docker run -d -p 3000:3000 --name <container name> <image name>
 ## 執行測試
 
 ```bash
+
 # 單元測試
 npm run test
 
@@ -48,6 +49,8 @@ npm run test:e2e
 # 測試覆蓋率
 npm run test:cov
 ```
+
+> 若還沒有安裝 packages: `npm install`
 
 ## 手動測試資料
 
