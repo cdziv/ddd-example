@@ -1,4 +1,4 @@
-import { ExchangeRateProviderPort } from '../domain';
+import { ExchangeRateProviderPort } from './ports';
 
 export class MockExchangeRateProvider implements ExchangeRateProviderPort {
   /**

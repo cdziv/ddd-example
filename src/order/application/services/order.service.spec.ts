@@ -4,33 +4,32 @@ import {
   DOMAIN_EVENT_EMITTER,
   ORDER_REPOSITORY,
 } from '../../order.constants';
-import { MockExchangeRateProvider } from '../../infra';
 import {
   Currency,
   Price,
-  OrderDomainService,
   OrderAR,
   OrderName,
   Address,
   City,
   District,
   Street,
-  OrderRepositoryPort,
 } from '../../domain';
 import { faker } from '@faker-js/faker';
 import { OrderService } from './order.service';
 import { OrderDtoAssembler } from '../dto-assemblers';
-import { DomainEventEmitter, Id } from '../../../common';
+import { DomainEventEmitter } from '../../../common';
 import { generateCapitalizedWords } from '../../../test-utils';
 import { OrderCreateParams } from '../dto';
+import { OrderRepositoryPort } from '../../infra';
 import { BadRequestException } from '@nestjs/common';
+import { ExchangeRateService } from './exchange-rate.service';
 
 describe('OrderService', () => {
   let mockValidOrder: OrderAR;
   let mockTransformedOrder: OrderAR;
   let mockOrderARToResponseResult: symbol;
   let orderDtoAssembler: OrderDtoAssembler;
-  let orderDomainService: OrderDomainService;
+  let exchangeRateService: ExchangeRateService;
   let orderService: OrderService;
   let orderRepository: OrderRepositoryPort;
   let domainEventEmitter: DomainEventEmitter;
@@ -60,7 +59,7 @@ describe('OrderService', () => {
           .fn()
           .mockReturnValue(mockOrderARToResponseResult),
       })
-      .mock(OrderDomainService)
+      .mock(ExchangeRateService)
       .using({
         switchToTWDCurrencyOrder: jest
           .fn()
@@ -77,7 +76,7 @@ describe('OrderService', () => {
       .compile();
     orderService = unit;
     orderDtoAssembler = unitRef.get(OrderDtoAssembler);
-    orderDomainService = unitRef.get(OrderDomainService);
+    exchangeRateService = unitRef.get(ExchangeRateService);
     orderRepository = unitRef.get(ORDER_REPOSITORY);
     domainEventEmitter = unitRef.get(DOMAIN_EVENT_EMITTER);
   });
@@ -100,7 +99,7 @@ describe('OrderService', () => {
     it('When transformed order price is over 2000, should throw BadRequestException with message "Price is over 2000"', async () => {
       const params = Symbol() as any as OrderCreateParams;
       jest
-        .spyOn(orderDomainService, 'switchToTWDCurrencyOrder')
+        .spyOn(exchangeRateService, 'switchToTWDCurrencyOrder')
         .mockResolvedValue(
           new OrderAR({
             ...mockValidOrder.props,

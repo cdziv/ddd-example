@@ -9,10 +9,11 @@ import { OrderDomainService } from './domain';
 import { OrderController } from './controller';
 import { OrderDtoAssembler, OrderService } from './application';
 import { MockDomainEventEmitter, MockOrderRepository } from './infra';
+import { ExchangeRateService } from './application';
 
 const controllers = [OrderController];
 const dtoAssemblers = [OrderDtoAssembler];
-const services = [OrderService];
+const services = [OrderService, ExchangeRateService];
 const domainServices = [OrderDomainService];
 const providers: Provider[] = [
   /** Using mock providers for demo */

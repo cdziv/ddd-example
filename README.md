@@ -153,7 +153,7 @@ Aggregate 符合特定邏輯時所發送出的事件，透過此模式可以有�
 
 維護超出聚合根範圍的領域邏輯。範例中實作成 Injectable Provider，透過依賴注入對外部系統介面進行互動。
 
-#### Port Interface
+### Interface Adapters
 
 Infrastructure Layer 提供者的界面，提供者需要實作此界面。這種模式可以避免在外部系統替換時，修改到核心領域程式碼。
 

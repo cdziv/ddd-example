@@ -1,4 +1,4 @@
 import { Id, RepositoryPort } from '../../../common';
-import { OrderAR } from '../entities';
+import { OrderAR } from '../../domain';
 
 export type OrderRepositoryPort = RepositoryPort<OrderAR, Id>;
