@@ -11,10 +11,11 @@ export class OrderService {
     @Inject(ORDER_REPOSITORY)
     private readonly orderRepository: OrderRepositoryPort,
     private readonly orderDomainService: OrderDomainService,
+    private readonly orderDtoAssembler: OrderDtoAssembler,
   ) {}
 
   async createOrder(params: OrderCreateParams): Promise<OrderResponse> {
-    const order = OrderDtoAssembler.orderCreateParamsToOrderAR(params);
+    const order = this.orderDtoAssembler.orderCreateParamsToOrderAR(params);
 
     // 驗證 order 是否符合 create order 的規則
     if (order.props.price.gt(Price.create(2000))) {
@@ -27,6 +28,6 @@ export class OrderService {
     // publish domain events 可以實作在 repository.save 的邏輯裡面，可以達到較一致的 Unit of Work
     await this.orderRepository.save(currencyTransformedOrder);
 
-    return OrderDtoAssembler.orderARToResponse(currencyTransformedOrder);
+    return this.orderDtoAssembler.orderARToResponse(currencyTransformedOrder);
   }
 }

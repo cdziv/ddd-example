@@ -1,4 +1,4 @@
-import { BadRequestException } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { OrderCreateBody, OrderResponse } from '../../api-interfaces';
 import { OrderCreateParams, orderCreateBodySchema } from '../dto';
 import { Id, isAlphabeticWords, isCapitalized } from '../../../common';
@@ -18,12 +18,13 @@ import { validate as isUUID } from 'uuid';
 /**
  * Dto Assembler 作為服務與 API 之間的資料轉換層。
  */
+@Injectable()
 export class OrderDtoAssembler {
   /**
    * 有必要的話，可以直接在這邊轉換成 Domain Object。
    * 按指定需求這邊只驗證資料型別。
    */
-  static orderCreateBodyToParams(body: OrderCreateBody): OrderCreateParams {
+  orderCreateBodyToParams(body: OrderCreateBody): OrderCreateParams {
     try {
       const parsed = orderCreateBodySchema.parse(body);
       return {
@@ -42,7 +43,7 @@ export class OrderDtoAssembler {
     }
   }
 
-  static orderARToResponse(order: OrderAR): OrderResponse {
+  orderARToResponse(order: OrderAR): OrderResponse {
     return {
       id: order.id.value,
       name: order.props.name.value,
@@ -60,7 +61,7 @@ export class OrderDtoAssembler {
    * DTO Assembler 中專注在確認 OrderCreateParams 的格式是否正確，並轉換成 OrderAR
    * 訂單金額與幣別的轉換在另外的方法處理
    */
-  static orderCreateParamsToOrderAR(params: OrderCreateParams): OrderAR {
+  orderCreateParamsToOrderAR(params: OrderCreateParams): OrderAR {
     try {
       if (!isAlphabeticWords(params.name)) {
         throw new BadRequestException('Name contains non-English characters');

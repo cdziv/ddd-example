@@ -15,8 +15,16 @@ import {
 import { Id } from '../../../common';
 import { CurrencyType } from '../../order.constants';
 import { OrderCreateParams } from '../dto/order.dto';
+import { TestBed } from '@automock/jest';
 
 describe('OrderDtoAssembler', () => {
+  let orderDtoAssembler: OrderDtoAssembler;
+
+  beforeEach(() => {
+    const { unit } = TestBed.create(OrderDtoAssembler).compile();
+    orderDtoAssembler = unit;
+  });
+
   describe('orderCreateBodyToParams', () => {
     const validBody = {
       id: faker.string.uuid(),
@@ -34,14 +42,14 @@ describe('OrderDtoAssembler', () => {
       const invalidBody = { ...validBody, id: faker.number.float() } as any;
 
       expect(() =>
-        OrderDtoAssembler.orderCreateBodyToParams(invalidBody),
+        orderDtoAssembler.orderCreateBodyToParams(invalidBody),
       ).toThrow(BadRequestException);
     });
     it('When datatype of name is not string, should throw BadRequestException', () => {
       const invalidBody = { ...validBody, name: faker.number.float() } as any;
 
       expect(() =>
-        OrderDtoAssembler.orderCreateBodyToParams(invalidBody),
+        orderDtoAssembler.orderCreateBodyToParams(invalidBody),
       ).toThrow(BadRequestException);
     });
     it('When datatype of address.city is not string, should throw BadRequestException', () => {
@@ -51,7 +59,7 @@ describe('OrderDtoAssembler', () => {
       } as any;
 
       expect(() =>
-        OrderDtoAssembler.orderCreateBodyToParams(invalidBody),
+        orderDtoAssembler.orderCreateBodyToParams(invalidBody),
       ).toThrow(BadRequestException);
     });
     it('When datatype of address.district is not string, should throw BadRequestException', () => {
@@ -61,7 +69,7 @@ describe('OrderDtoAssembler', () => {
       } as any;
 
       expect(() =>
-        OrderDtoAssembler.orderCreateBodyToParams(invalidBody),
+        orderDtoAssembler.orderCreateBodyToParams(invalidBody),
       ).toThrow(BadRequestException);
     });
     it('When datatype of address.street is not string, should throw BadRequestException', () => {
@@ -71,14 +79,14 @@ describe('OrderDtoAssembler', () => {
       } as any;
 
       expect(() =>
-        OrderDtoAssembler.orderCreateBodyToParams(invalidBody),
+        orderDtoAssembler.orderCreateBodyToParams(invalidBody),
       ).toThrow(BadRequestException);
     });
     it('When datatype of price is not string, should throw BadRequestException', () => {
       const invalidBody = { ...validBody, price: faker.number.float() } as any;
 
       expect(() =>
-        OrderDtoAssembler.orderCreateBodyToParams(invalidBody),
+        orderDtoAssembler.orderCreateBodyToParams(invalidBody),
       ).toThrow(BadRequestException);
     });
     it('When datatype of currency is not string, should throw BadRequestException', () => {
@@ -88,7 +96,7 @@ describe('OrderDtoAssembler', () => {
       } as any;
 
       expect(() =>
-        OrderDtoAssembler.orderCreateBodyToParams(invalidBody),
+        orderDtoAssembler.orderCreateBodyToParams(invalidBody),
       ).toThrow(BadRequestException);
     });
   });
@@ -113,7 +121,7 @@ describe('OrderDtoAssembler', () => {
         price: Price.create(priceValue),
         currency: new Currency({ value: currencyValue }),
       });
-      const result = OrderDtoAssembler.orderARToResponse(order);
+      const result = orderDtoAssembler.orderARToResponse(order);
 
       expect(result).toEqual({
         id: idValue,
@@ -143,7 +151,7 @@ describe('OrderDtoAssembler', () => {
     };
 
     it('When passing valid OrderCreateParams, should return OrderAR', () => {
-      const result = OrderDtoAssembler.orderCreateParamsToOrderAR(validParams);
+      const result = orderDtoAssembler.orderCreateParamsToOrderAR(validParams);
 
       expect(result).toBeInstanceOf(OrderAR);
     });
@@ -151,7 +159,7 @@ describe('OrderDtoAssembler', () => {
       const invalidParams = { ...validParams, name: '中文' };
 
       expect(() =>
-        OrderDtoAssembler.orderCreateParamsToOrderAR(invalidParams),
+        orderDtoAssembler.orderCreateParamsToOrderAR(invalidParams),
       ).toThrowWithMessage(
         BadRequestException,
         'Name contains non-English characters',
@@ -161,7 +169,7 @@ describe('OrderDtoAssembler', () => {
       const invalidParams = { ...validParams, name: 'Not all capitalized' };
 
       expect(() =>
-        OrderDtoAssembler.orderCreateParamsToOrderAR(invalidParams),
+        orderDtoAssembler.orderCreateParamsToOrderAR(invalidParams),
       ).toThrowWithMessage(BadRequestException, 'Name is not capitalized');
     });
     it('When currency is not in CurrencyType, should throw BadRequestException with message "Currency format is wrong"', () => {
@@ -169,17 +177,17 @@ describe('OrderDtoAssembler', () => {
       const invalidParams2 = { ...validParams, currency: 'CNY' };
 
       expect(() =>
-        OrderDtoAssembler.orderCreateParamsToOrderAR(invalidParams1),
+        orderDtoAssembler.orderCreateParamsToOrderAR(invalidParams1),
       ).toThrowWithMessage(BadRequestException, 'Currency format is wrong');
       expect(() =>
-        OrderDtoAssembler.orderCreateParamsToOrderAR(invalidParams2),
+        orderDtoAssembler.orderCreateParamsToOrderAR(invalidParams2),
       ).toThrowWithMessage(BadRequestException, 'Currency format is wrong');
     });
     it('When id is not a valid UUID, should throw BadRequestException with message "Invalid id format"', () => {
       const invalidParams = { ...validParams, id: 'invalid' };
 
       expect(() =>
-        OrderDtoAssembler.orderCreateParamsToOrderAR(invalidParams),
+        orderDtoAssembler.orderCreateParamsToOrderAR(invalidParams),
       ).toThrowWithMessage(BadRequestException, 'Invalid id format');
     });
   });
