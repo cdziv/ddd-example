@@ -21,7 +21,6 @@ export const orderNameSchema = z
 
 export class OrderName extends ValueObject<DomainPrimitiveProps<string>> {
   validate() {
-    console.log(orderNameSchema.safeParse(this.value).error);
     return validateDomain(orderNameSchema, this.value);
   }
 }
