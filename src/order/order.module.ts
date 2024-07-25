@@ -18,7 +18,7 @@ const providers: Provider[] = [
   /** Using mock providers for demo */
   {
     provide: DOMAIN_EVENT_EMITTER,
-    useValue: MockDomainEventEmitter,
+    useClass: MockDomainEventEmitter,
   },
   {
     provide: EXCHANGE_RATE_PROVIDER,
@@ -26,7 +26,7 @@ const providers: Provider[] = [
   },
   {
     provide: ORDER_REPOSITORY,
-    useValue: MockOrderRepository,
+    useClass: MockOrderRepository,
   },
 
   ...services,
