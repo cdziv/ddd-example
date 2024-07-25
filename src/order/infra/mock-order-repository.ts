@@ -7,7 +7,6 @@ import {
   District,
   OrderAR,
   OrderName,
-  Price,
   PriceV2,
   Street,
 } from '../domain';

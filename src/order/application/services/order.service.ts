@@ -1,7 +1,7 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { OrderResponse } from '../../api-interfaces';
 import { OrderCreateParams } from '../dto';
-import { OrderDomainService, Price } from '../../domain';
+import { DecimalAmount, OrderDomainService } from '../../domain';
 import { DOMAIN_EVENT_EMITTER, ORDER_REPOSITORY } from '../../order.constants';
 import { OrderDtoAssembler } from '../dto-assemblers';
 import { DomainEventEmitter } from '../../../common';
@@ -27,7 +27,9 @@ export class OrderService {
       await this.exchangeRateService.switchToTWDCurrencyOrder(order);
     // 驗證 order 是否符合 create order 的規則
     if (
-      currencyTransformedOrder.props.price.value.amount.gt(Price.create(2000))
+      currencyTransformedOrder.props.price.value.amount.gt(
+        DecimalAmount.create(2000),
+      )
     ) {
       throw new BadRequestException('Price is over 2000');
     }

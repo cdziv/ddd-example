@@ -14,6 +14,9 @@ const priceSchema = z.object({
 });
 type PriceProps = { decimal: Decimal };
 
+/**
+ * @deprecated use PriceV2 instead
+ */
 export class Price extends ValueObject<PriceProps> {
   eq(other: Price): boolean {
     return this.value.decimal.eq(other.value.decimal);
