@@ -30,8 +30,8 @@ describe('OrderDtoAssembler', () => {
       id: faker.string.uuid(),
       name: generateCapitalizedWords(3, 5),
       address: {
-        city: faker.word.words(3),
-        district: faker.word.words(3),
+        city: faker.word.words(2),
+        district: faker.word.words(2),
         street: faker.word.words(3),
       },
       price: faker.finance.amount({ dec: 0 }),
@@ -105,8 +105,8 @@ describe('OrderDtoAssembler', () => {
     it('When passing OrderAR, should return OrderResponse', () => {
       const idValue = faker.string.uuid();
       const nameValue = generateCapitalizedWords(3, 5);
-      const cityValue = faker.word.words(3);
-      const districtValue = faker.word.words(3);
+      const cityValue = faker.word.words(2);
+      const districtValue = faker.word.words(2);
       const streetValue = faker.word.words(3);
       const priceValue = faker.finance.amount({ dec: 0 });
       const currencyValue = CurrencyType.USD;
