@@ -1,27 +1,9 @@
 import { TestBed } from '@automock/jest';
 import { OrderDomainService } from './order.domain-service';
-import { EXCHANGE_RATE_PROVIDER } from '../../order.constants';
-import { MockExchangeRateProvider } from '../../infra';
-// import {
-//   Address,
-//   City,
-//   Currency,
-//   District,
-//   OrderName,
-//   Price,
-//   Street,
-// } from '../vo';
-// import { faker } from '@faker-js/faker';
-// import { OrderAR } from '../entities';
-// import { generateCapitalizedWords } from '../../../test-utils';
 
 describe('OrderDomainService', () => {
-  const { unit: orderDomainService, unitRef } = TestBed.create(
-    OrderDomainService,
-  )
-    .mock(EXCHANGE_RATE_PROVIDER)
-    .using(new MockExchangeRateProvider())
-    .compile();
+  const { unit: orderDomainService } =
+    TestBed.create(OrderDomainService).compile();
 
   it('should be defined', () => {
     expect(orderDomainService).toBeDefined();

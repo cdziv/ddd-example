@@ -1,3 +1,5 @@
+import { ExchangeRate } from '../../domain';
+
 export interface ExchangeRateProviderPort {
-  usdToTwd(): Promise<number>;
+  getUsdToTwdRate(): Promise<ExchangeRate>;
 }

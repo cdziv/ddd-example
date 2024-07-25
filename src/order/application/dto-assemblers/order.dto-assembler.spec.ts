@@ -6,10 +6,11 @@ import {
   Address,
   City,
   Currency,
+  DecimalAmount,
   District,
   OrderAR,
   OrderName,
-  Price,
+  PriceV2,
   Street,
 } from '../../domain';
 import { Id } from '../../../common';
@@ -118,8 +119,10 @@ describe('OrderDtoAssembler', () => {
           district: new District({ value: districtValue }),
           street: new Street({ value: streetValue }),
         }),
-        price: Price.create(priceValue),
-        currency: new Currency({ value: currencyValue }),
+        price: new PriceV2({
+          amount: DecimalAmount.create(priceValue),
+          currency: new Currency({ value: currencyValue }),
+        }),
       });
       const result = orderDtoAssembler.orderARToResponse(order);
 

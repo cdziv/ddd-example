@@ -6,13 +6,14 @@ import {
 } from '../../order.constants';
 import {
   Currency,
-  Price,
   OrderAR,
   OrderName,
   Address,
   City,
   District,
   Street,
+  PriceV2,
+  DecimalAmount,
 } from '../../domain';
 import { faker } from '@faker-js/faker';
 import { OrderService } from './order.service';
@@ -42,12 +43,16 @@ describe('OrderService', () => {
         district: new District({ value: faker.word.words(2) }),
         street: new Street({ value: faker.word.words(3) }),
       }),
-      price: Price.create(faker.finance.amount({ dec: 0, max: 50 })),
-      currency: new Currency({ value: CurrencyType.USD }),
+      price: new PriceV2({
+        amount: DecimalAmount.create(faker.finance.amount({ dec: 0, max: 50 })),
+        currency: new Currency({ value: CurrencyType.USD }),
+      }),
     });
     mockTransformedOrder = mockValidOrder.update({
-      price: mockValidOrder.props.price.mul(31),
-      currency: new Currency({ value: CurrencyType.TWD }),
+      price: new PriceV2({
+        amount: mockValidOrder.props.price.value.amount.mul(31),
+        currency: new Currency({ value: CurrencyType.TWD }),
+      }),
     });
     mockOrderARToResponseResult = Symbol('mockOrderARToResponseResult');
 
@@ -103,8 +108,10 @@ describe('OrderService', () => {
         .mockResolvedValue(
           new OrderAR({
             ...mockValidOrder.props,
-            price: Price.create(2001),
-            currency: new Currency({ value: CurrencyType.TWD }),
+            price: new PriceV2({
+              amount: DecimalAmount.create(2001),
+              currency: new Currency({ value: CurrencyType.TWD }),
+            }),
           }),
         );
 

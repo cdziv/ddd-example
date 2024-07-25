@@ -6,10 +6,11 @@ import {
   Address,
   City,
   Currency,
+  DecimalAmount,
   District,
   OrderAR,
   OrderName,
-  Price,
+  PriceV2,
   Street,
 } from '../../domain';
 import { CurrencyType } from '../../order.constants';
@@ -52,8 +53,8 @@ export class OrderDtoAssembler {
         district: order.props.address.value.district.value,
         street: order.props.address.value.street.value,
       },
-      price: order.props.price.value.decimal.toString(),
-      currency: order.props.currency.value,
+      price: order.props.price.value.amount.value.decimal.toString(),
+      currency: order.props.price.value.currency.value,
     };
   }
 
@@ -70,13 +71,17 @@ export class OrderDtoAssembler {
         throw new BadRequestException('Name is not capitalized');
       }
       const name = new OrderName({ value: params.name });
-      const price = Price.create(params.price);
+      const amount = DecimalAmount.create(params.price);
       let currency: Currency;
       try {
         currency = new Currency({ value: params.currency as CurrencyType });
       } catch (err) {
         throw new BadRequestException('Currency format is wrong');
       }
+      const price = new PriceV2({
+        amount,
+        currency,
+      });
       const city = new City({ value: params.address.city });
       const district = new District({ value: params.address.district });
       const street = new Street({ value: params.address.street });
@@ -89,7 +94,7 @@ export class OrderDtoAssembler {
         throw new BadRequestException('Invalid id format');
       }
       const id = new Id({ value: params.id });
-      return new OrderAR({ id, name, address, price, currency });
+      return new OrderAR({ id, name, address, price });
     } catch (err) {
       if (err instanceof BadRequestException) {
         throw err;

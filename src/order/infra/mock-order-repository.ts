@@ -3,10 +3,12 @@ import {
   Address,
   City,
   Currency,
+  DecimalAmount,
   District,
   OrderAR,
   OrderName,
   Price,
+  PriceV2,
   Street,
 } from '../domain';
 import { CurrencyType } from '../order.constants';
@@ -20,8 +22,10 @@ const MOCK_ORDERS = [
       district: new District({ value: 'mock district one' }),
       street: new Street({ value: 'mock street one' }),
     }),
-    price: Price.create(1000),
-    currency: new Currency({ value: CurrencyType.TWD }),
+    price: new PriceV2({
+      amount: DecimalAmount.create(1000),
+      currency: new Currency({ value: CurrencyType.TWD }),
+    }),
   }),
   new OrderAR({
     id: Id.create(),
@@ -31,8 +35,10 @@ const MOCK_ORDERS = [
       district: new District({ value: 'mock district two' }),
       street: new Street({ value: 'mock street two' }),
     }),
-    price: Price.create(50),
-    currency: new Currency({ value: CurrencyType.USD }),
+    price: new PriceV2({
+      amount: DecimalAmount.create(50),
+      currency: new Currency({ value: CurrencyType.USD }),
+    }),
   }),
 ];
 

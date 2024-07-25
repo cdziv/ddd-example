@@ -1,22 +1,21 @@
 import { z } from 'zod';
 import { AggregateRoot, Id, validateDomain, voSchema } from '../../../common';
-import { Address, Currency, OrderName, Price } from '../vo';
+import { Address, OrderName } from '../vo';
 import { OrderCreated, OrderUpdated } from '../events';
+import { PriceV2 } from '../vo/price.v2.vo';
 
 const orderSchema = z.object({
   id: voSchema(Id),
   name: voSchema(OrderName),
   address: voSchema(Address),
-  price: voSchema(Price),
-  currency: voSchema(Currency),
+  price: voSchema(PriceV2),
 });
 
 type OrderProps = {
   id: Id;
   name: OrderName;
   address: Address;
-  price: Price;
-  currency: Currency;
+  price: PriceV2;
 };
 
 /**
@@ -48,7 +47,6 @@ export class OrderAR extends AggregateRoot<OrderProps, Id> {
 export type CreateOrderProps = {
   name: OrderName;
   address: Address;
-  price: Price;
-  currency: Currency;
+  price: PriceV2;
 };
 export type UpdateOrderProps = Partial<CreateOrderProps>;

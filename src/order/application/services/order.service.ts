@@ -26,7 +26,9 @@ export class OrderService {
     const currencyTransformedOrder =
       await this.exchangeRateService.switchToTWDCurrencyOrder(order);
     // 驗證 order 是否符合 create order 的規則
-    if (currencyTransformedOrder.props.price.gt(Price.create(2000))) {
+    if (
+      currencyTransformedOrder.props.price.value.amount.gt(Price.create(2000))
+    ) {
       throw new BadRequestException('Price is over 2000');
     }
 

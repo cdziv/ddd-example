@@ -3,9 +3,10 @@ import {
   Address,
   City,
   Currency,
+  DecimalAmount,
   District,
   OrderName,
-  Price,
+  PriceV2,
   Street,
 } from '../vo';
 import { OrderAR } from './order.ar';
@@ -35,10 +36,12 @@ describe('OrderAR', () => {
         .join(' '),
     ),
   });
-  const price = Price.create(faker.finance.amount());
-  const currency = new Currency({ value: CurrencyType.TWD });
+  const price = new PriceV2({
+    amount: DecimalAmount.create(faker.finance.amount()),
+    currency: new Currency({ value: CurrencyType.TWD }),
+  });
   const id = Id.create();
-  const validProps = { id, name, address, price, currency };
+  const validProps = { id, name, address, price };
 
   describe('constructor', () => {
     it('When passing valid props, should create OrderAR instance', () => {
@@ -61,7 +64,6 @@ describe('OrderAR', () => {
         name,
         address,
         price,
-        currency,
       });
 
       expect(order).toBeInstanceOf(OrderAR);
@@ -71,7 +73,6 @@ describe('OrderAR', () => {
         name,
         address,
         price,
-        currency,
       });
     });
     it('When passing valid props, should create OrderAR instance with OrderCreated domain event', () => {
@@ -79,7 +80,6 @@ describe('OrderAR', () => {
         name,
         address,
         price,
-        currency,
       });
 
       expect(order.domainEvents).toHaveLength(1);
@@ -97,12 +97,13 @@ describe('OrderAR', () => {
   describe('update', () => {
     it('When passing valid props, should update OrderAR instance with updated props', () => {
       const order = new OrderAR(validProps);
-      const newPrice = Price.create(faker.finance.amount());
-      const newCurrency = new Currency({ value: CurrencyType.USD });
+      const newPrice = new PriceV2({
+        amount: DecimalAmount.create(faker.finance.amount()),
+        currency: new Currency({ value: CurrencyType.USD }),
+      });
 
       const updatedOrder = order.update({
         price: newPrice,
-        currency: newCurrency,
       });
 
       expect(updatedOrder).toBeInstanceOf(OrderAR);
@@ -111,17 +112,17 @@ describe('OrderAR', () => {
         name,
         address,
         price: newPrice,
-        currency: newCurrency,
       });
     });
     it('When passing valid props, should add OrderUpdated domain event', () => {
       const order = new OrderAR(validProps);
-      const newPrice = Price.create(faker.finance.amount());
-      const newCurrency = new Currency({ value: CurrencyType.USD });
+      const newPrice = new PriceV2({
+        amount: DecimalAmount.create(faker.finance.amount()),
+        currency: new Currency({ value: CurrencyType.USD }),
+      });
 
       const updatedOrder = order.update({
         price: newPrice,
-        currency: newCurrency,
       });
 
       expect(updatedOrder.domainEvents).toHaveLength(1);
