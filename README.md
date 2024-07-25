@@ -143,23 +143,17 @@ Http Request 將被 Nest.js Controller 解析為一個 Plain Object，我使用 
 
 Aggregate 符合特定邏輯時所發送出的事件，透過此模式可以有效與外部流程解耦，保留領域邏輯的純粹性
 
-### Domain Service Layer
-
-領域物件之間可能會彼此互動，若超出聚合根的邊界範圍，則適合放在 Domain Service Layer。此外，就算是領域邏輯也有可能會必須參考到外部系統，所以這裡也適合定義定義對接 Infrastructure Layer 的 Port 的界面，透過依賴注入的方式可以不用真實對接外部系統就可以維護好領域內的邏輯。
-
-> 此範例中，將取得匯率的提供者的界面定義在其中，並且提供 OrderDomainService 使用。
-
 #### Domain Service
 
-維護超出聚合根範圍的領域邏輯。範例中實作成 Injectable Provider，透過依賴注入對外部系統介面進行互動。
+領域物件之間可能會彼此互動，若超出聚合根的邊界範圍，則適合在 Domain Service 中進行，例如數個領域物件交互而產生新的領域物件。有時候遇到這種情境時會想要在領域物件上使用靜態方法來生成另外一個領域物件，但這不是好的實踐，因為會增加它們之間的耦合。
 
-### Interface Adapters
-
-Infrastructure Layer 提供者的界面，提供者需要實作此界面。這種模式可以避免在外部系統替換時，修改到核心領域程式碼。
+> 此範例中，根據當前數值與匯率產生新的價格，便實作在 OrderDomainService 中
 
 ### Infrastructure Layer
 
-待補
+#### Interface Adapters
+
+Infrastructure Layer 提供者的適配界面，提供者需要實作此界面供應用層注入。這種模式可以避免在外部系統替換時，修改到應用層的程式碼。
 
 ### Application Layer
 
