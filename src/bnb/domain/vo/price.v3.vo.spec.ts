@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { CurrencyType } from '../../order.constants';
+import { CurrencyType } from '../../bnb.constants';
 import { PriceV3 } from './price.v3.vo';
 import { DecimalAmount } from './decimal-amount.vo';
 

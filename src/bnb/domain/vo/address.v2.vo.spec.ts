@@ -1,6 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { Address } from './address.vo';
-import { DddArgumentInvalidDomainError } from '../../../common';
+import { DddArgumentInvalidDomainError } from '@/common';
 import { AddressV2 } from './address.v2.vo';
 
 describe('AddressV2', () => {
@@ -22,7 +21,7 @@ describe('AddressV2', () => {
       const notHere = new Date();
       const props = { city, district, notHere } as any;
 
-      expect(() => new Address(props)).toThrow(DddArgumentInvalidDomainError);
+      expect(() => new AddressV2(props)).toThrow(DddArgumentInvalidDomainError);
     });
   });
 

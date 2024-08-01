@@ -23,6 +23,7 @@
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
+    "date-fns": "^3.6.0",
     "decimal.js": "^10.4.3",
     "lodash.isequal": "^4.5.0",
     "lodash.isplainobject": "^4.0.6",

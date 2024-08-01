@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { ValueObject, validateDomain, voSchema } from '../../../common';
+import { ValueObject, validateDomain, voSchema } from '@/common';
 import { DecimalAmount } from './decimal-amount.vo';
-import { CurrencyType } from '../../order.constants';
+import { CurrencyType } from '../../bnb.constants';
 
 const priceSchema = z.object({
   amount: voSchema(DecimalAmount),

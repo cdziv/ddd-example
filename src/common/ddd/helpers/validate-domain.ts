@@ -15,6 +15,7 @@ export function validateDomain(
         return pathStr ? `${pathStr}:${iss.message}` : iss.message;
       })
       .join('; ');
+    console.log(result.error.issues[0].code);
     return new DddArgumentInvalidDomainError(message);
   }
 }

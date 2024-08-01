@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { validateDomain, ValueObject } from '../../../common';
+import { validateDomain, ValueObject } from '@/common';
 
 const addressV2Schema = z.object({
   city: z.string().min(1).max(30),
