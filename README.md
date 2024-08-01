@@ -21,6 +21,8 @@
 
 ## 通用語言
 
+![通用語言說明圖](https://raw.githubusercontent.com/cdziv/ddd-example/new-case/docs/uniquitous-intro.jpg)
+
 通用語言作為領域專家與開發人員之間溝通的共同語言，減少兩邊之間專業語言上的鴻溝。通用語言的核心價值是明確表達兩邊對領域知識的理解，它可以是各種形式，可以是圖或文件。
 
 ## 範例需求描述
@@ -72,6 +74,7 @@
 
 ## 解釋性模型
 
+![解釋性模型圖](https://raw.githubusercontent.com/cdziv/ddd-example/new-case/docs/uniquitous-diagram.jpg)
 我們試著將領域專家描述的需求，畫成解釋性模型來作為我們的通用語言的一部分。通用語言的圖並不一定限於嚴謹的 UML。UML 表達了程式實作的細節，但這些對於在和領域專家溝通上來說過於細瑣與不必要，通用語言的重點在於溝通與解釋。
 
 有時候光使用圖可能會不夠表達更細節的內容，可以搭配文件補足。
@@ -112,6 +115,8 @@
 - 聚合根之間不能互相包含，它們必須透過唯一識別來引用
 
 ## 範例需求上下文
+
+![範例需求上下文](https://raw.githubusercontent.com/cdziv/ddd-example/new-case/docs/spec-context.jpg)
 
 # 架構
 
