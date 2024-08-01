@@ -88,12 +88,12 @@ export abstract class ValueObject<T extends ValueObjectProps> {
    * @note 由於 _props 可能可以被儲存為 immutable 物件而造成讀取時的額外運算，所以透過 _cachedValue 來做暫存。
    * （此版本沒有實踐 immutable 物件）
    */
-  public get value(): ValueObjectValue<T> {
+  public get value(): Readonly<ValueObjectValue<T>> {
     if (!this._cachedValue) {
       this._cachedValue = this.isDomainPrimitive
         ? (this._props['value'] as ValueObjectValue<T>)
         : (this._props as ValueObjectValue<T>);
     }
-    return this._cachedValue;
+    return Object.freeze(this._cachedValue);
   }
 }

@@ -78,7 +78,7 @@ export abstract class Entity<
    * @note 由於 _props 可能可以被儲存為 immutable 物件而造成讀取時的額外運算，所以透過 _cachedValue 來做暫存。
    * （此版本沒有實踐 immutable 物件）
    */
-  public get props(): T {
+  public get props(): Readonly<T> {
     if (!this._cachedValue) {
       this._cachedValue = this._props;
     }
