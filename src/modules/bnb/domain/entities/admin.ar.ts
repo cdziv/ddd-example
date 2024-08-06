@@ -14,7 +14,7 @@ type AdminARProps = {
 };
 
 export class AdminAR extends AggregateRoot<AdminARProps, Id> {
-  static create(props: CreateOrderProps): AdminAR {
+  static create(props: CreateAdminProps): AdminAR {
     const id = Id.create();
     return new AdminAR({ ...props, id });
   }
@@ -28,7 +28,7 @@ export class AdminAR extends AggregateRoot<AdminARProps, Id> {
   }
 }
 
-export type CreateOrderProps = {
+export type CreateAdminProps = {
   bnbId: Id;
   email: string;
 };
