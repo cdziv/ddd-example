@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { AggregateRoot, Id, validateDomain, voSchema } from '@/common';
 import { PriceV3, Period } from '../vo';
+import { BookingCreated } from '../events';
 
 const bookingSchema = z.object({
   id: voSchema(Id),
@@ -26,7 +27,9 @@ export class BookingAR extends AggregateRoot<BookingARProps, Id> {
   static create(props: CreateBookingARProps): BookingAR {
     const id = Id.create();
     const createdAt = new Date();
-    return new BookingAR({ ...props, id, createdAt });
+    return new BookingAR({ ...props, id, createdAt }).addDomainEvent(
+      new BookingCreated(id.value),
+    );
   }
 
   get id() {

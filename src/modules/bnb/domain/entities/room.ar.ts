@@ -20,6 +20,7 @@ const roomSchema = z.object({
 
 type RoomARProps = {
   id: Id;
+  bnbId: Id;
   name: string;
   beds: BedEntity[];
   price: PriceV3;
@@ -52,6 +53,7 @@ export class RoomAR extends AggregateRoot<RoomARProps, Id> {
 }
 
 export type CreateRoomARProps = {
+  bnbId: Id;
   name: string;
   price: PriceV3;
   beds: BedEntity[];
