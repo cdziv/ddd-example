@@ -1,3 +1,3 @@
-import { DomainEvent } from '../../../common';
+import { DomainEvent } from '@/common';
 
 export class BookingCreated extends DomainEvent {}

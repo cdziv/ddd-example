@@ -15,7 +15,7 @@ import {
   DddArgumentInvalidDomainError,
   Id,
 } from '../../../common';
-import { CurrencyType } from '../..//order.constants';
+import { CurrencyType } from '../../order.constants';
 import { OrderCreated, OrderUpdated } from '../events';
 
 describe('OrderAR', () => {

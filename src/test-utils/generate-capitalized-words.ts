@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { capitalizeWords } from '../common';
+import { capitalizeWords } from '@/common';
 
 export function generateCapitalizedWords(
   wordsCount: number,

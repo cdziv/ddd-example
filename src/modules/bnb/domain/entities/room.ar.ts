@@ -25,6 +25,10 @@ type RoomARProps = {
 };
 
 export class RoomAR extends AggregateRoot<RoomARProps, Id> {
+  addBed(bed: BedEntity): this {
+    return this.patchValues({ beds: [...this.props.beds, bed] });
+  }
+
   static create(props: CreateRoomARProps): RoomAR {
     const id = Id.create();
     return new RoomAR({ ...props, id });
