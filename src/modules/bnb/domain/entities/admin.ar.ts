@@ -3,11 +3,13 @@ import { AggregateRoot, Id, validateDomain, voSchema } from '@/common';
 
 const adminSchema = z.object({
   id: voSchema(Id),
+  bnbId: voSchema(Id),
   email: z.string().email(),
 });
 
 type AdminARProps = {
   id: Id;
+  bnbId: Id;
   email: string;
 };
 
@@ -27,5 +29,6 @@ export class AdminAR extends AggregateRoot<AdminARProps, Id> {
 }
 
 export type CreateOrderProps = {
+  bnbId: Id;
   email: string;
 };

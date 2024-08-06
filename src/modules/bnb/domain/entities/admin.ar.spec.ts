@@ -3,8 +3,11 @@ import { AdminAR } from './admin.ar';
 import { DddArgumentInvalidDomainError, Id } from '@/common';
 
 describe('AdminAR', () => {
-  const id = Id.create();
-  const validProps = { id, email: faker.internet.email() };
+  const validProps = {
+    id: Id.create(),
+    bnbId: Id.create(),
+    email: faker.internet.email(),
+  };
 
   describe('constructor', () => {
     it('When passing valid props, should create AdminAR instance', () => {
@@ -13,7 +16,7 @@ describe('AdminAR', () => {
       expect(order).toBeInstanceOf(AdminAR);
     });
     it('When passing invalid props, should throw DddArgumentInvalidDomainError', () => {
-      const invalidProps = { ...validProps, name: null } as any;
+      const invalidProps = { ...validProps, email: null } as any;
 
       expect(() => new AdminAR(invalidProps)).toThrow(
         DddArgumentInvalidDomainError,
@@ -23,7 +26,7 @@ describe('AdminAR', () => {
 
   describe('static create', () => {
     it('When passing valid props, should create AdminAR instance with same props and new id', () => {
-      const props = { email: faker.internet.email() };
+      const props = { bnbId: Id.create(), email: faker.internet.email() };
 
       const admin = AdminAR.create(props);
 

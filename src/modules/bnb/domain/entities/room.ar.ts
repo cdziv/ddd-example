@@ -12,6 +12,7 @@ import { BedEntity } from './bed.entity';
 
 const roomSchema = z.object({
   id: voSchema(Id),
+  bnbId: voSchema(Id),
   name: z.string().min(3).max(60),
   beds: z.array(entitySchema(BedEntity)),
   price: voSchema(PriceV3),

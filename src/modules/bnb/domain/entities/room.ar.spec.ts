@@ -8,6 +8,7 @@ import { DecimalAmount, PriceV3 } from '../vo';
 describe('RoomAR', () => {
   const validProps = {
     id: Id.create(),
+    bnbId: Id.create(),
     name: faker.commerce.product(),
     beds: [
       BedEntity.create({
@@ -38,6 +39,7 @@ describe('RoomAR', () => {
   describe('static create', () => {
     it('When passing valid props, should create RoomAR instance with same props and new id', () => {
       const props = {
+        bnbId: Id.create(),
         name: faker.commerce.product(),
         beds: [
           BedEntity.create({
