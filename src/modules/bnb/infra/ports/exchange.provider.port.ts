@@ -1,9 +1,9 @@
 import { CurrencyType } from '../../bnb.constants';
-import { DecimalAmount, PriceV3 } from '../../domain';
+import { DecimalAmount, Price } from '../../domain';
 
 export const EXCHANGE_PROVIDER = 'EXCHANGE_PROVIDER' as const;
 export type ExchangeProviderPort = {
-  getExchangePrice: (spec: ExchangeSpecification) => Promise<PriceV3>;
+  getExchangePrice: (spec: ExchangeSpecification) => Promise<Price>;
 };
 
 export type ExchangeSpecification = {

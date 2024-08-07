@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { CurrencyType } from '../../bnb.constants';
-import { PriceV3 } from './price.v3.vo';
+import { Price } from './price.vo';
 import { DecimalAmount } from './decimal-amount.vo';
 
 describe('Price', () => {
@@ -11,9 +11,9 @@ describe('Price', () => {
 
   describe('constructor', () => {
     it('When passing value is valid props with Decimal, should return Price with same value', () => {
-      const price = new PriceV3(validProps);
+      const price = new Price(validProps);
 
-      expect(price).toBeInstanceOf(PriceV3);
+      expect(price).toBeInstanceOf(Price);
       expect(price.value).toEqual(validProps);
     });
   });

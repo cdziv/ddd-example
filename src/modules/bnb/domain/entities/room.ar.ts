@@ -7,7 +7,7 @@ import {
   entitySchema,
   DddArgumentInvalidDomainError,
 } from '@/common';
-import { PriceV3 } from '../vo';
+import { Price } from '../vo';
 import { BedEntity } from './bed.entity';
 
 const roomSchema = z.object({
@@ -15,7 +15,7 @@ const roomSchema = z.object({
   bnbId: voSchema(Id),
   name: z.string().min(3).max(60),
   beds: z.array(entitySchema(BedEntity)),
-  price: voSchema(PriceV3),
+  price: voSchema(Price),
 });
 
 type RoomARProps = {
@@ -23,7 +23,7 @@ type RoomARProps = {
   bnbId: Id;
   name: string;
   beds: BedEntity[];
-  price: PriceV3;
+  price: Price;
 };
 
 export class RoomAR extends AggregateRoot<RoomARProps, Id> {
@@ -55,6 +55,6 @@ export class RoomAR extends AggregateRoot<RoomARProps, Id> {
 export type CreateRoomARProps = {
   bnbId: Id;
   name: string;
-  price: PriceV3;
+  price: Price;
   beds: BedEntity[];
 };

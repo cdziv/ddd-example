@@ -7,9 +7,9 @@ const priceSchema = z.object({
   amount: voSchema(DecimalAmount),
   currency: z.nativeEnum(CurrencyType),
 });
-type PriceV3Props = { amount: DecimalAmount; currency: CurrencyType };
+type PriceProps = { amount: DecimalAmount; currency: CurrencyType };
 
-export class PriceV3 extends ValueObject<PriceV3Props> {
+export class Price extends ValueObject<PriceProps> {
   validate() {
     return validateDomain(priceSchema, this.value);
   }

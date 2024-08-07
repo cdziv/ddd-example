@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { AggregateRoot, Id, validateDomain, voSchema } from '@/common';
-import { PriceV3, Period } from '../vo';
+import { Price, Period } from '../vo';
 import { BookingCreated } from '../events';
 
 const bookingSchema = z.object({
@@ -9,7 +9,7 @@ const bookingSchema = z.object({
   roomId: voSchema(Id),
   clientId: voSchema(Id),
   period: voSchema(Period),
-  price: voSchema(PriceV3),
+  price: voSchema(Price),
   createdAt: z.date(),
 });
 
@@ -19,7 +19,7 @@ type BookingARProps = {
   roomId: Id;
   clientId: Id;
   period: Period;
-  price: PriceV3;
+  price: Price;
   createdAt: Date;
 };
 
@@ -46,5 +46,5 @@ export type CreateBookingARProps = {
   roomId: Id;
   clientId: Id;
   period: Period;
-  price: PriceV3;
+  price: Price;
 };

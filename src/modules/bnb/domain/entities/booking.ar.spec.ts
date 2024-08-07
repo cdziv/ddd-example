@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import { DddArgumentInvalidDomainError, Id } from '@/common';
 import { BookingAR } from './booking.ar';
 import { CurrencyType } from '../../bnb.constants';
-import { DecimalAmount, Period, PriceV3 } from '../vo';
+import { DecimalAmount, Period, Price } from '../vo';
 
 describe('BookingAR', () => {
   const validProps = {
@@ -14,7 +14,7 @@ describe('BookingAR', () => {
       startsAt: faker.date.recent(),
       endsAt: faker.date.soon(),
     }),
-    price: new PriceV3({
+    price: new Price({
       currency: faker.helpers.enumValue(CurrencyType),
       amount: DecimalAmount.create(faker.finance.amount({ dec: 0 })),
     }),
@@ -46,7 +46,7 @@ describe('BookingAR', () => {
           startsAt: faker.date.recent(),
           endsAt: faker.date.soon(),
         }),
-        price: new PriceV3({
+        price: new Price({
           currency: faker.helpers.enumValue(CurrencyType),
           amount: DecimalAmount.create(faker.finance.amount({ dec: 0 })),
         }),

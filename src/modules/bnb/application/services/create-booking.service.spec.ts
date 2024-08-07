@@ -2,7 +2,7 @@ import { TestBed } from '@automock/jest';
 import {
   DecimalAmount,
   BookingAR,
-  PriceV3,
+  Price,
   RoomAR,
   BedEntity,
   BookingCreated,
@@ -64,7 +64,7 @@ describe('CreateBookingService', () => {
             size: faker.helpers.enumValue(BedSize),
           }),
         ],
-        price: new PriceV3({
+        price: new Price({
           currency: CurrencyType.TWD,
           amount: DecimalAmount.create(faker.finance.amount({ dec: 0 })),
         }),
@@ -113,7 +113,7 @@ describe('CreateBookingService', () => {
             size: faker.helpers.enumValue(BedSize),
           }),
         ],
-        price: new PriceV3({
+        price: new Price({
           currency: CurrencyType.TWD,
           amount: DecimalAmount.create(faker.finance.amount({ dec: 0 })),
         }),
@@ -157,12 +157,12 @@ describe('CreateBookingService', () => {
             size: faker.helpers.enumValue(BedSize),
           }),
         ],
-        price: new PriceV3({
+        price: new Price({
           currency: CurrencyType.TWD,
           amount: DecimalAmount.create(faker.finance.amount({ dec: 0 })),
         }),
       });
-      const exchangedPrice = new PriceV3({
+      const exchangedPrice = new Price({
         currency: CurrencyType.USD,
         amount: DecimalAmount.create(faker.finance.amount({ dec: 0 })),
       });
@@ -221,12 +221,12 @@ describe('CreateBookingService', () => {
             size: faker.helpers.enumValue(BedSize),
           }),
         ],
-        price: new PriceV3({
+        price: new Price({
           currency: CurrencyType.TWD,
           amount: DecimalAmount.create(faker.finance.amount({ dec: 0 })),
         }),
       });
-      const exchangedPrice = new PriceV3({
+      const exchangedPrice = new Price({
         currency: CurrencyType.USD,
         amount: DecimalAmount.create(faker.finance.amount({ dec: 0 })),
       });
@@ -273,12 +273,12 @@ describe('CreateBookingService', () => {
             size: faker.helpers.enumValue(BedSize),
           }),
         ],
-        price: new PriceV3({
+        price: new Price({
           currency: CurrencyType.TWD,
           amount: DecimalAmount.create(faker.finance.amount({ dec: 0 })),
         }),
       });
-      const exchangedPrice = new PriceV3({
+      const exchangedPrice = new Price({
         currency: CurrencyType.USD,
         amount: DecimalAmount.create(faker.finance.amount({ dec: 0 })),
       });

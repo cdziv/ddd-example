@@ -3,7 +3,7 @@ import { DddArgumentInvalidDomainError, Id } from '@/common';
 import { RoomAR } from './room.ar';
 import { BedEntity } from './bed.entity';
 import { BedSize, CurrencyType } from '../../bnb.constants';
-import { DecimalAmount, PriceV3 } from '../vo';
+import { DecimalAmount, Price } from '../vo';
 
 describe('RoomAR', () => {
   const validProps = {
@@ -15,7 +15,7 @@ describe('RoomAR', () => {
         size: faker.helpers.enumValue(BedSize),
       }),
     ],
-    price: new PriceV3({
+    price: new Price({
       currency: CurrencyType.TWD,
       amount: DecimalAmount.create(faker.finance.amount({ dec: 0 })),
     }),
@@ -46,7 +46,7 @@ describe('RoomAR', () => {
             size: faker.helpers.enumValue(BedSize),
           }),
         ],
-        price: new PriceV3({
+        price: new Price({
           currency: CurrencyType.TWD,
           amount: DecimalAmount.create(faker.finance.amount({ dec: 0 })),
         }),

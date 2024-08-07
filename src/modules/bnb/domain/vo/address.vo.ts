@@ -1,12 +1,12 @@
 import { z } from 'zod';
 import { validateDomain, ValueObject } from '@/common';
 
-const addressV2Schema = z.object({
+const addressSchema = z.object({
   city: z.string().min(1).max(30),
   district: z.string().min(1).max(30),
   street: z.string().min(1).max(120),
 });
-type AddressV2Props = {
+type AddressProps = {
   city: string;
   district: string;
   street: string;
@@ -15,7 +15,7 @@ type AddressV2Props = {
 /**
  * 地址需要包含城市、區域、街道。
  */
-export class AddressV2 extends ValueObject<AddressV2Props> {
+export class Address extends ValueObject<AddressProps> {
   get city() {
     return this.value.city;
   }
@@ -30,6 +30,6 @@ export class AddressV2 extends ValueObject<AddressV2Props> {
   }
 
   validate() {
-    return validateDomain(addressV2Schema, this.value);
+    return validateDomain(addressSchema, this.value);
   }
 }
