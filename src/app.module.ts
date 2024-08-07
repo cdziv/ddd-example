@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
-import { OrderModule } from './order_legacy_case/order.module';
+import { BnbModule } from './modules';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
-  imports: [OrderModule],
-  controllers: [],
-  providers: [],
+  imports: [EventEmitterModule.forRoot(), BnbModule],
 })
 export class AppModule {}

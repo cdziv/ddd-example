@@ -6,8 +6,8 @@ export const createBookingRequestDtoSchema = z.object({
   bnbId: idSchema,
   roomId: idSchema,
   clientId: idSchema,
-  checkInAt: z.date(),
-  checkOutAt: z.date(),
+  checkInAt: z.coerce.date(),
+  checkOutAt: z.coerce.date(),
   useCurrency: z.nativeEnum(CurrencyType),
 });
 
