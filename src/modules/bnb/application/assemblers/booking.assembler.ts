@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { BookingAR } from '../../../domain';
-import { BookingResponseDto } from '../../../dtos';
+import { BookingAR } from '../../domain';
+import { BookingResponseDto } from '../../dtos';
 
 @Injectable()
 export class BookingAssembler {

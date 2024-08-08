@@ -10,7 +10,7 @@ import {
 } from '../../infra';
 import { Id } from '@/common';
 import { BookingAR, Period } from '../../domain';
-import { BookingAssembler } from './assemblers';
+import { BookingAssembler } from '../assemblers';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()

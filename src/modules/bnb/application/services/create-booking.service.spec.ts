@@ -18,7 +18,7 @@ import {
   ROOM_REPOSITORY,
   RoomRepositoryPort,
 } from '../../infra';
-import { BookingAssembler } from './assemblers';
+import { BookingAssembler } from '../assemblers';
 import { CreateBookingService } from './create-booking.service';
 import { CreateBookingRequestDto } from '../../dtos';
 import { BedSize, CurrencyType } from '../../bnb.constants';

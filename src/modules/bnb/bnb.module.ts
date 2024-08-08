@@ -10,7 +10,7 @@ import {
   EXCHANGE_PROVIDER,
   ROOM_REPOSITORY,
 } from './infra';
-import { BookingController } from './presentation';
+import { BookingController } from './controllers';
 
 const infraProviders = [
   {
